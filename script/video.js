@@ -26,6 +26,30 @@ const displaycatagory = (categories) => {
 
     })
 };
+//convert seconds to month day hour minute second
+const getTimeString = (time) => {
+    let seconds = parseInt(time);
+    const year = Math.floor(seconds / (365 * 86400));
+    seconds %= 365 * 86400;
+    const month = Math.floor(seconds / (30 * 86400));
+    seconds %= 30 * 86400;
+    const day = Math.floor(seconds / 86400);
+    seconds %= 86400;
+    const hour = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    const minute = Math.floor(seconds / 60);
+    const second = seconds % 60;
+
+    let result = "";
+    if (year > 0) result += `${year} year `;
+    if (month > 0) result += `${month} month `;
+    if (day > 0) result += `${day} day `;
+    if (hour > 0) result += `${hour} hour `;
+    if (minute > 0) result += `${minute} min `;
+    if (second > 0 || result === "") result += `${second} sec `;
+    return result + "ago";
+};
+
 //display video
 const lodevideos = () => {
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
@@ -47,8 +71,11 @@ const displayvideos = (videos) => {
       src=${video.thumbnail}
       class="h-full w-full object-cover"
       alt="Shoes" />
-      <span class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
-      ${video.others.posted_date}</span>
+
+      ${video.others.posted_date?.length == 0 ? "":`<span class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
+      ${getTimeString(video.others.posted_date)}</span>`}
+
+      
     </figure>
         <div class="px-0 py-2 flex flex-col gap-2">
         <div>
