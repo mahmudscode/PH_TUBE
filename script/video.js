@@ -138,6 +138,7 @@ const displayvideos = (videos) => {
             <p class="text-gray-500">${video.authors[0].profile_name}</p>
            ${video.authors[0].verified ? ` <img class="w-5" src="https://img.icons8.com/fluency/48/verified-badge--v1.png" alt="verified-badge--v1"/>` : ""}
         </div>
+        <button onclick="lodeDetails('${video.video_id}')" class="btn btn-sm bg-red-500 text-white mt-2">Details</button>
     </div>
     
   </div> `;
@@ -147,6 +148,26 @@ const displayvideos = (videos) => {
     });
 }
 
+
+//lode video details
+const lodeDetails = (videoId) => {
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`)
+        .then((res) => res.json())
+        .then((data) => displayDetails(data.video))
+        .catch((error) => console.error("Error fetching video details:", error));
+};
+
+//display video details in modal
+const displayDetails = (video) => {
+    const detailContainer = document.getElementById("modal-content");
+    detailContainer.innerHTML = `
+        <img class="w-full rounded" src="${video.thumbnail}" alt="${video.title}" />
+        <h3 class="text-lg font-bold mt-3">${video.title}</h3>
+        <p class="text-gray-500 text-sm">${video.authors[0].profile_name} • ${video.others.views} views</p>
+        <p class="py-3">${video.description}</p>
+    `;
+    document.getElementById("details_modal").showModal();
+};
 
 lodecatagory();
 
