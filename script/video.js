@@ -81,8 +81,8 @@ const getTimeString = (time) => {
 };
 
 //display video
-const lodevideos = () => {
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const lodevideos = (searchText = "") => {
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${encodeURIComponent(searchText)}`)
         .then((res) => res.json())
         .then((data) => displayvideos(data.videos))
         .catch((error) => console.error("Error fetching videos:", error));
@@ -168,6 +168,12 @@ const displayDetails = (video) => {
     `;
     document.getElementById("details_modal").showModal();
 };
+
+//search videos by title
+document.getElementById("search-input").addEventListener("input", (e) => {
+    removeActiveClass();
+    lodevideos(e.target.value);
+});
 
 lodecatagory();
 
