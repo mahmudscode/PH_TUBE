@@ -11,10 +11,24 @@ const lodecatagory = () => {
         .catch((error) => console.error("Error fetching categories:", error));
 };
 
+//remove active style from all category buttons
+const removeActiveClass = () => {
+    const buttons = document.getElementsByClassName("category-btn");
+    for (const btn of buttons) {
+        btn.classList.remove("bg-red-500", "text-white");
+    }
+};
+
 const lodecatagoryvideos = (id) => {
     fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
         .then((res) => res.json())
-        .then((data) => displayvideos(data.category))
+        .then((data) => {
+            //mark the clicked button
+            removeActiveClass();
+            const activeBtn = document.getElementById(`btn-${id}`);
+            activeBtn.classList.add("bg-red-500", "text-white");
+            displayvideos(data.category);
+        })
         .catch((error) => console.error("Error fetching categories:", error));
 };
 
@@ -31,7 +45,7 @@ const displaycatagory = (categories) => {
         buttoncontainer.innerHTML =
 
             `
-        <button onclick="lodecatagoryvideos(${items.category_id})" class ="btn">
+        <button id="btn-${items.category_id}" onclick="lodecatagoryvideos(${items.category_id})" class ="btn category-btn">
         ${items.category}
         </button>
 
@@ -76,7 +90,7 @@ const lodevideos = () => {
 
 const displayvideos = (videos) => {
 
-    const videoContainer = document.getElementById("videos");
+    const videoContainer = document.getElementById("videos"); 
     videoContainer.innerHTML = "";
 
     if (videos.length === 0) {
