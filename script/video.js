@@ -10,6 +10,15 @@ const lodecatagory = () => {
         .then((data) => displaycatagory(data.categories))
         .catch((error) => console.error("Error fetching categories:", error));
 };
+
+const lodecatagoryvideos = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+        .then((res) => res.json())
+        .then((data) => displayvideos(data.category))
+        .catch((error) => console.error("Error fetching categories:", error));
+};
+
+
 //create display catagoris
 const displaycatagory = (categories) => {
     //add data in html
@@ -17,12 +26,19 @@ const displaycatagory = (categories) => {
     categories.forEach((items) => {
         console.log(items);
         //create a button
-        const button = document.createElement("button");
-        button.classList = "btn";
-        button.innerText = items.category;
+
+        const buttoncontainer = document.createElement("div");
+        buttoncontainer.innerHTML =
+        
+        `
+        <button onclick="lodecatagoryvideos(${items.category_id})" class ="btn">
+        ${items.category}
+        </button>
+
+        `;
 
         //add button to category
-        categoryContainer.append(button);
+        categoryContainer.append(buttoncontainer);
 
     })
 };
@@ -61,6 +77,7 @@ const lodevideos = () => {
 const displayvideos = (videos) => {
 
     const videoContainer = document.getElementById("videos");
+    videoContainer.innerHTML = "";
     videos.forEach((video) => {
 
         console.log(video);
@@ -72,7 +89,7 @@ const displayvideos = (videos) => {
       class="h-full w-full object-cover"
       alt="Shoes" />
 
-      ${video.others.posted_date?.length == 0 ? "":`<span class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
+      ${video.others.posted_date?.length == 0 ? "":`<span class="absolute right-2 bottom-2 bg-blacktext-xs text-white p-1 rounded">
       ${getTimeString(video.others.posted_date)}</span>`}
 
       
