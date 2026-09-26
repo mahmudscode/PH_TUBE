@@ -29,8 +29,8 @@ const displaycatagory = (categories) => {
 
         const buttoncontainer = document.createElement("div");
         buttoncontainer.innerHTML =
-        
-        `
+
+            `
         <button onclick="lodecatagoryvideos(${items.category_id})" class ="btn">
         ${items.category}
         </button>
@@ -78,6 +78,26 @@ const displayvideos = (videos) => {
 
     const videoContainer = document.getElementById("videos");
     videoContainer.innerHTML = "";
+
+    if (videos.length === 0) {
+        videoContainer.classList.remove("grid");
+        videoContainer.innerHTML =
+            `
+        <div class = "min-h-[600px] flex flex-col justify-center items-center">
+        <img src="/icon/Icon.png" alt="No videos found" />
+         <h1 class="text-center text-xl font-bold py-10">
+        No videos found for this category
+    </h1>
+
+        </div>
+        `;
+    }
+    else {
+        videoContainer.classList.add("grid");
+    }
+
+
+
     videos.forEach((video) => {
 
         console.log(video);
@@ -89,7 +109,7 @@ const displayvideos = (videos) => {
       class="h-full w-full object-cover"
       alt="Shoes" />
 
-      ${video.others.posted_date?.length == 0 ? "":`<span class="absolute right-2 bottom-2 bg-blacktext-xs text-white p-1 rounded">
+      ${video.others.posted_date?.length == 0 ? "" : `<span class="absolute right-2 bottom-2 bg-blacktext-xs text-white p-1 rounded">
       ${getTimeString(video.others.posted_date)}</span>`}
 
       
@@ -102,7 +122,7 @@ const displayvideos = (videos) => {
         <h2 class="font-bold">${video.title}</h2>
         <div class="flex items-center gap-2">
             <p class="text-gray-500">${video.authors[0].profile_name}</p>
-           ${video.authors[0].verified ? ` <img class="w-5" src="https://img.icons8.com/fluency/48/verified-badge--v1.png" alt="verified-badge--v1"/>`: ""}
+           ${video.authors[0].verified ? ` <img class="w-5" src="https://img.icons8.com/fluency/48/verified-badge--v1.png" alt="verified-badge--v1"/>` : ""}
         </div>
     </div>
     
