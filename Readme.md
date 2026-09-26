@@ -1,98 +1,83 @@
 <p align="center">
-<img src="Logo.png"  />
-</p>
-<p align="center" style="font-size: 24px;">
-  PH Tube is a web-based video streaming application where users can browse and watch videos sorted by categories such as music, comedy, and tutorials.
+  <img src="icon/Logo.png" alt="PH Tube logo" width="200" />
 </p>
 
-<hr/>
-<p align="center" style="font-size: 34px; font-weight:bold">
- REST API
+<p align="center">
+  A video browsing web app built with vanilla JavaScript, Tailwind CSS and daisyUI.<br/>
+  Browse videos by category, search by title and view video details — all powered by a REST API.
 </p>
 
-<p style=" font-weight:bold">
- GET: Categories 
+<p align="center">
+  <img src="screenshots/home.png" alt="PH Tube home page" />
 </p>
 
-Endpoint: [https://openapi.programming-hero.com/api/phero-tube/categories](https://openapi.programming-hero.com/api/phero-tube/categories) <br/>
+## Features
 
-<hr/>
-<p style=" font-weight:bold">
- GET: Videos 
-</p>
+- **Dynamic categories** — category buttons are loaded from the API
+- **Active category** — the selected category button turns red
+- **Video cards** — thumbnail, author, verified badge and "time ago" upload label
+- **Video details** — the red **Details** button opens a modal with the full description
+- **Search by title** — results update as you type, even with a single letter
+- **Empty state** — a "No videos found" message for categories with no videos
 
-Endpoint: [https://openapi.programming-hero.com/api/phero-tube/videos](https://openapi.programming-hero.com/api/phero-tube/videos) <br/>
+## Screenshots
 
-<hr/>
-<p style=" font-weight:bold">
- GET: Video based on Catagory  [ params ]
-</p>
-Endpoint : https://openapi.programming-hero.com/api/phero-tube/category/categoryId
+### Video details modal
 
-Example: [https://openapi.programming-hero.com/api/phero-tube/category/1001](https://openapi.programming-hero.com/api/phero-tube/category/1001) <br/>
+Clicking **Details** fetches the video from the API and shows it in a modal. The active category (Comedy) is highlighted in red.
 
-<hr/>
+![Video details modal](screenshots/details.png)
 
-<p style=" font-weight:bold">
- GET: Video based on Title  [ Query ]
-</p>
-Endpoint : https://openapi.programming-hero.com/api/phero-tube/videos?title=videoTitle
+### Search by title
 
-Example: [https://openapi.programming-hero.com/api/phero-tube/videos?title=shape](https://openapi.programming-hero.com/api/phero-tube/videos?title=shape) <br/>
+Typing in the search box shows only the videos whose title matches.
 
-<hr/>
-<p style=" font-weight:bold">
- GET: Video Details by video_id  [ Query ]
-</p>
-Endpoint : https://openapi.programming-hero.com/api/phero-tube/video/video_id
+![Search results for "shape"](screenshots/search.png)
 
-Example: [https://openapi.programming-hero.com/api/phero-tube/video/aaac](https://openapi.programming-hero.com/api/phero-tube/video/aaac) <br/>
+### No videos found
 
-<hr/>
-<p align="center" style="font-size: 34px; font-weight:bold">
- Requirements
-</p>
+Categories without any videos show an empty-state message.
 
-### Create a responsive Navbar which have following elements
+![No videos found](screenshots/no-videos.png)
 
-- Logo of PH-Tube at Left
-- A Search Box with Search Button at Center
-- A Sort Button at the Right
-- (Add a border at bottom of the Navbar)
+## Tech Stack
 
-### Create Dynamic Category Section
+- HTML5
+- [Tailwind CSS v4](https://tailwindcss.com/) (browser CDN)
+- [daisyUI v5](https://daisyui.com/)
+- Vanilla JavaScript (Fetch API)
 
-- Load all the Catagory Button From API and Show them in a centered position
-- on click on a certain button, Load specific Catagory Data
-- Integrate active button functionality for better UX
+## Getting Started
 
-### Create Dynamic Video Sections
+No build step is needed. Clone the repo and open `index.html` in a browser, or serve it locally:
 
-- Load all the videos from API
-- use the Card Layout mentioned in Design part
-- Show Verified badge (if Verified)
-- on click Show Video Details with Author info in a modal
-- Show No Video Icon if specific category have no videos
+```bash
+git clone https://github.com/mahmudscode/PH_TUBE.git
+cd PH_TUBE
+python -m http.server 8000
+```
 
-## Additional Features
+Then open [http://localhost:8000](http://localhost:8000).
 
-### Search Functionality
+## Project Structure
 
-- Integrate search functionality
-- on input change  de-activate active button on category and show matched videos only
+```text
+PH_TUBE/
+├── index.html        # Page layout, navbar and details modal
+├── script/
+│   └── video.js      # API calls and DOM rendering
+├── icon/             # Logo and "no videos" icon
+└── screenshots/      # README images
+```
 
+## API Reference
 
+Base URL: `https://openapi.programming-hero.com/api/phero-tube`
 
-<hr/>
-
-<p align="center" style="font-size: 34px; font-weight:bold">
- Design Idea's
-</p>
-Basic Layout
-<img src="design/Frame 1.png">
-<hr/>
-Error Layout
-
-<img src="design/Frame 3.png">
-
-<hr/>
+| Purpose | Endpoint | Example |
+| --- | --- | --- |
+| All categories | `/categories` | [/categories](https://openapi.programming-hero.com/api/phero-tube/categories) |
+| All videos | `/videos` | [/videos](https://openapi.programming-hero.com/api/phero-tube/videos) |
+| Videos by category | `/category/:categoryId` | [/category/1001](https://openapi.programming-hero.com/api/phero-tube/category/1001) |
+| Videos by title | `/videos?title=:title` | [/videos?title=shape](https://openapi.programming-hero.com/api/phero-tube/videos?title=shape) |
+| Video details | `/video/:videoId` | [/video/aaac](https://openapi.programming-hero.com/api/phero-tube/video/aaac) |
