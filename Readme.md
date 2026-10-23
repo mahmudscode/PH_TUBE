@@ -4,7 +4,7 @@
 
 <p align="center">
   A video browsing web app built with vanilla JavaScript, Tailwind CSS and daisyUI.<br/>
-  Browse videos by category, search by title and view video details — all powered by a REST API.
+  Browse videos by category, search by title and view video details all powered by a REST API.
 </p>
 
 <p align="center">
